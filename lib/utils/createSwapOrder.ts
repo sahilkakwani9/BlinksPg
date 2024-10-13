@@ -11,7 +11,7 @@ export default async function createSwapOrder(params: createOrderParams) {
 
     const quoteResponse = await (
       await fetch(
-        `https://quote-api.jup.ag/v6/quote?inputMint=${params.inputMint}&outputMint=${params.outputMint}&amount=${params.amount}&slippageBps=50`
+        `https://quote-api.jup.ag/v6/quote?inputMint=${params.inputMint}&outputMint=${params.outputMint}&amount=${params.amount}&slippageBps=100`
       )
     ).json();
 
