@@ -5,6 +5,7 @@ import {
   ActionGetResponse,
   ActionPostRequest,
   ActionPostResponse,
+  createPostResponse,
 } from "@solana/actions";
 import {
   clusterApiUrl,
@@ -129,11 +130,9 @@ export const POST = async (req: Request) => {
     const swapTransactionBuf = Buffer.from(data, "base64");
     var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
 
-    const payload: ActionPostResponse = {
-      transaction: data,
-      message: `Swap executed`,
-      type: "transaction",
-    };
+    const payload: ActionPostResponse = await createPostResponse({
+      fields: { transaction, type: "transaction", message: "executing" },
+    });
 
     return Response.json(payload, {
       headers: ACTIONS_CORS_HEADERS,
