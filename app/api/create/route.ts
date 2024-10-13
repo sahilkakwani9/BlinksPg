@@ -1,6 +1,7 @@
-import getTokenInfo from "@/lib/utils/getTokenInfo";
+import { Cluster, getTokenInfo } from "@/lib/utils/getTokenInfo";
 import { ACTIONS_CORS_HEADERS, ActionGetResponse } from "@solana/actions";
 
+import { PublicKey, clusterApiUrl } from "@solana/web3.js";
 export const GET = async (req: Request) => {
   try {
     console.log("got hit");
@@ -17,12 +18,21 @@ export const GET = async (req: Request) => {
     }
 
     const [sellTokenInfo, buyTokenInfo] = await Promise.all([
-      getTokenInfo(sellTokenAddress),
-      getTokenInfo(buyTokenAddress),
+      getTokenInfo(
+        new PublicKey(sellTokenAddress),
+        Cluster.MainnetBeta,
+        clusterApiUrl("mainnet-beta"),
+      ),
+      getTokenInfo(
+        new PublicKey(buyTokenAddress),
+        Cluster.MainnetBeta,
+        clusterApiUrl("mainnet-beta"),
+      ),
     ]);
 
+    console.log(sellTokenInfo, buyTokenInfo);
     const payload: ActionGetResponse = {
-      title: `Sell ${sellTokenInfo.result.symbol} & Buy ${buyTokenInfo.result.symbol}`,
+      title: `Sell ${sellTokenInfo?.symbol} & Buy ${buyTokenInfo?.symbol}`,
       icon: "https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/",
       description: `Enter details and swap tokens within seconds.`,
       label: "Swap Tokens",
