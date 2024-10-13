@@ -5,19 +5,15 @@ type createOrderParams = {
   amount: string;
 };
 
-export default async function createOrder(params: createOrderParams) {
+export default async function createSwapOrder(params: createOrderParams) {
   try {
     console.log(params, "params");
+
     const quoteResponse = await (
       await fetch(
-        `https://quote-api.jup.ag/v6/quote?inputMint=${params.inputMint}\
-  &outputMint=${params.outputMint}\
-  &amount=${params.amount}\
-  &slippageBps=50`
+        `https://quote-api.jup.ag/v6/quote?inputMint=${params.inputMint}&outputMint=${params.outputMint}&amount=${params.amount}&slippageBps=50`
       )
     ).json();
-
-    console.log(quoteResponse, "response from qoute");
 
     // get serialized transactions for the swap
     const { swapTransaction } = await (
@@ -38,7 +34,6 @@ export default async function createOrder(params: createOrderParams) {
         }),
       })
     ).json();
-    console.log("swap transaction", swapTransaction);
 
     return swapTransaction;
   } catch (error) {
