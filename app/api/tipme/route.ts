@@ -17,21 +17,24 @@ import {
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  console.log("TIP URL", url);
-  const amount = Number(url.searchParams.get("amount")) || 0.1;
-  const address = Number(url.searchParams.get("address"));
-
   const payload: ActionGetResponse = {
-    icon: "someimage",
-    title: "Tip to Me",
+    title: "Tip Me 0.1 SOl",
+    icon: "https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/",
     description: "Support rahul by donating SOL.",
-    label: "Tip",
+    label: "Tip me",
     links: {
       actions: [
         {
-          type: "external-link",
           label: "Tip 0.1 SOL",
-          href: `${url.href}?amount=${amount}&address=${address}`,
+          href: `${url.href}&amount={amount}`,
+          parameters: [
+            {
+              name: "amount",
+              label: "Enter the amount",
+              required: true,
+              type: "number",
+            },
+          ],
         },
       ],
     },
@@ -47,7 +50,7 @@ export async function POST(request: Request) {
   const body: ActionPostRequest = await request.json();
   const url = new URL(request.url);
   const amount = Number(url.searchParams.get("amount")) || 0.1;
-  const address = Number(url.searchParams.get("address"));
+  const address = url.searchParams.get("address");
   let sender;
 
   try {

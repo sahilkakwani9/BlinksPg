@@ -30,7 +30,6 @@ export const GET = async (req: Request) => {
         actions: [
           {
             label: "Swap Tokens",
-            type: "external-link",
             href: `${requestUrl.href}&amount={amount}`,
             parameters: [
               {
