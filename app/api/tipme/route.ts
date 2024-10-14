@@ -17,21 +17,23 @@ import {
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
+  const tipAmount = url.searchParams.get("amount") || 0.1;
   const payload: ActionGetResponse = {
-    title: "Tip Me 0.1 SOl",
+    title: `Tip Me ${tipAmount} SOl`,
     icon: "https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/",
-    description: "Support rahul by donating SOL.",
+    description: "Support me by sending SOL",
     label: "Tip me",
     links: {
       actions: [
         {
-          label: "Tip 0.1 SOL",
+          label: `Tip Me ${tipAmount} SOL`,
           href: `${url.href}&amount={amount}`,
           parameters: [
             {
               name: "amount",
               label: "Enter the amount",
-              required: true,
+              min: tipAmount,
+              required: false,
               type: "number",
             },
           ],
