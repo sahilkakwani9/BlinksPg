@@ -8,12 +8,7 @@ import {
   ActionPostRequest,
   ActionPostResponse,
 } from "@solana/actions";
-import {
-  clusterApiUrl,
-  PublicKey,
-  VersionedTransaction,
-} from "@solana/web3.js";
-import cluster from "cluster";
+import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 
 export const GET = async (req: Request) => {
   try {
@@ -133,9 +128,6 @@ export const POST = async (req: Request) => {
     });
 
     console.log(data);
-
-    const swapTransactionBuf = Buffer.from(data, "base64");
-    var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
 
     const payload: ActionPostResponse = {
       transaction: data,
