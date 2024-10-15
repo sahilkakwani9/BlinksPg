@@ -17,10 +17,10 @@ import {
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const tipAmount = url.searchParams.get("amount") || 0.1;
+  const tipAmount = url.searchParams.get("amount") || "0.1";
   const payload: ActionGetResponse = {
     title: `Tip Me ${tipAmount} SOl`,
-    icon: "https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/",
+    icon: "http://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FTip.png&w=2048&q=75",
     description: "Support me by sending SOL",
     label: "Tip me",
     links: {
@@ -28,11 +28,12 @@ export async function GET(request: Request) {
         {
           label: `Tip Me ${tipAmount} SOL`,
           href: `${url.href}&amount={amount}`,
+          type: "transaction",
           parameters: [
             {
               name: "amount",
               label: "Enter the amount",
-              min: tipAmount,
+              min: parseFloat(tipAmount),
               required: false,
               type: "number",
             },
@@ -67,7 +68,7 @@ export async function POST(request: Request) {
       {
         status: 400,
         headers: ACTIONS_CORS_HEADERS,
-      },
+      }
     );
   }
 
@@ -76,9 +77,9 @@ export async function POST(request: Request) {
   const transaction = new Transaction().add(
     SystemProgram.transfer({
       fromPubkey: sender,
-      toPubkey: new PublicKey(address),
+      toPubkey: new PublicKey(address!),
       lamports: amount * LAMPORTS_PER_SOL,
-    }),
+    })
   );
   transaction.feePayer = sender;
   transaction.recentBlockhash = (

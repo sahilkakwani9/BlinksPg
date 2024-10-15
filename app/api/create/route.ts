@@ -42,7 +42,7 @@ export const GET = async (req: Request) => {
 
     const payload: ActionGetResponse = {
       title: `Sell ${sellTokenInfo?.symbol} & Buy ${buyTokenInfo?.symbol}`,
-      icon: "https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/",
+      icon: "http://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FSwap.png&w=2048&q=75",
       description: `Enter details and swap tokens within seconds.`,
       label: "Swap Tokens",
       links: {

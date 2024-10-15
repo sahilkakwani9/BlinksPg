@@ -46,7 +46,11 @@ export function TemplateCard({
               <CardItem
                 translateZ={20}
                 as="button"
-                className="px-4 py-2 rounded-md bg-gradient-to-t from-blue-600 to-blue-500 text-white text-sm font-bold hover:bg-[length:100%_150%] bg-[length:100%_100%] bg-[bottom] transition-all"
+                className="px-4 py-2 rounded-md text-white text-sm font-bold 
+                           bg-gradient-to-r from-blue-500 to-blue-600 
+                           hover:from-blue-600 hover:to-blue-700
+                           transition-all duration-300 ease-in-out
+                           bg-[length:200%_100%] bg-left hover:bg-right"
               >
                 Use Template
               </CardItem>

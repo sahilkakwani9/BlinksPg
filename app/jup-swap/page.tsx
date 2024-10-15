@@ -28,7 +28,7 @@ function Page() {
 
   return (
     <main className="min-h-screen w-full flex flex-col justify-center items-center">
-      <CardSpotlight className="w-[380px] p-6 bg-gray-600 border-gray-600">
+      <div className="w-[380px] p-6 bg-gray-600 border-gray-600 rounded-lg">
         <div className="relative z-20">
           <h2 className="text-2xl font-bold text-white mb-2">
             Create your blink
@@ -56,7 +56,7 @@ function Page() {
             </div>
           </form>
           <Button
-          className="w-full rounded-3xl h-11 text-md mt-6 bg-blue-600"
+            className="w-full rounded-3xl h-11 text-md mt-6 bg-blue-600"
             onClick={() => {
               navigator.clipboard.writeText(
                 `https://${window.location.hostname}/api/create?sell=${sellToken?.address}&buy=${buyToken?.address}`
@@ -69,7 +69,7 @@ function Page() {
             Copy Link
           </Button>
         </div>
-      </CardSpotlight>
+      </div>
     </main>
   );
 }
