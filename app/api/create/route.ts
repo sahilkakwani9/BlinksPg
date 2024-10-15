@@ -1,6 +1,7 @@
 import { SOLANA_LOGO } from "@/lib/utils/constants";
 import createSwapOrder from "@/lib/utils/createSwapOrder";
 import { generateSvg } from "@/lib/utils/generateSvg";
+import { getBase64Image } from "@/lib/utils/getBase64Image";
 import { Cluster, getTokenInfo } from "@/lib/utils/getTokenInfo";
 import {
   ACTIONS_CORS_HEADERS,
@@ -35,9 +36,18 @@ export const GET = async (req: Request) => {
       ),
     ]);
 
-    const svgContent = generateSvg(
-      buyTokenInfo?.logoURI || SOLANA_LOGO,
+    const buyTokenUri = await getBase64Image(
+      buyTokenInfo?.logoURI || SOLANA_LOGO
+    );
+    const sellTokenUri = await getBase64Image(
       sellTokenInfo?.logoURI || SOLANA_LOGO
+    );
+
+    console.log("this are buy", buyTokenUri, "this are sell", sellTokenUri);
+
+    const svgContent = generateSvg(
+      buyTokenUri || SOLANA_LOGO,
+      sellTokenUri || SOLANA_LOGO
     );
     const svgDataUri = `data:image/svg+xml;base64,${Buffer.from(
       svgContent
