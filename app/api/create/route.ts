@@ -1,4 +1,5 @@
 import createSwapOrder from "@/lib/utils/createSwapOrder";
+import { generateSvg } from "@/lib/utils/generateSvg";
 import { Cluster, getTokenInfo } from "@/lib/utils/getTokenInfo";
 import {
   ACTIONS_CORS_HEADERS,
@@ -40,9 +41,16 @@ export const GET = async (req: Request) => {
       ),
     ]);
 
+    const svgContent = generateSvg(buyTokenInfo?.logoURI || "");
+    const svgDataUri = `data:image/svg+xml;base64,${Buffer.from(
+      svgContent
+    ).toString("base64")}`;
+
+    console.log(svgDataUri);
+
     const payload: ActionGetResponse = {
       title: `Sell ${sellTokenInfo?.symbol} & Buy ${buyTokenInfo?.symbol}`,
-      icon: "http://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FSwap.png&w=2048&q=75",
+      icon: svgDataUri,
       description: `Enter details and swap tokens within seconds.`,
       label: "Swap Tokens",
       links: {
