@@ -21,7 +21,7 @@ function Page() {
     }
 
     const tipAmount = parseFloat(amount) > 0 ? amount : "0.1";
-    const tipLink = `http://localhost:3000/tipme?amount=${tipAmount}&address=${address}`;
+    const tipLink = `http://${window.location.hostname}/tipme?amount=${tipAmount}&address=${address}`;
 
     navigator.clipboard.writeText(tipLink);
 

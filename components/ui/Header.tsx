@@ -16,7 +16,7 @@ export default function Header() {
           <ul className="flex flex-1 items-center justify-end gap-3">
             <li>
               <Link
-                href="/signup"
+                href="/templates"
                 className="btn-sm bg-gray-800 text-gray-200 shadow hover:bg-gray-900 text-sm font-medium transition-all"
               >
                 Get Started
