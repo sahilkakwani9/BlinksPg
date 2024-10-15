@@ -1,3 +1,4 @@
+import { SOLANA_LOGO } from "@/lib/utils/constants";
 import createSwapOrder from "@/lib/utils/createSwapOrder";
 import { generateSvg } from "@/lib/utils/generateSvg";
 import { Cluster, getTokenInfo } from "@/lib/utils/getTokenInfo";
@@ -20,8 +21,6 @@ export const GET = async (req: Request) => {
     const sellTokenAddress = requestUrl.searchParams.get("sell");
     const buyTokenAddress = requestUrl.searchParams.get("buy");
 
-    console.log(sellTokenAddress, buyTokenAddress);
-
     if (!sellTokenAddress || !buyTokenAddress) {
       return Response.json("Data not provided", {
         headers: ACTIONS_CORS_HEADERS,
@@ -41,12 +40,13 @@ export const GET = async (req: Request) => {
       ),
     ]);
 
-    const svgContent = generateSvg(buyTokenInfo?.logoURI || "");
+    const svgContent = generateSvg(
+      buyTokenInfo?.logoURI || SOLANA_LOGO,
+      sellTokenInfo?.logoURI || SOLANA_LOGO
+    );
     const svgDataUri = `data:image/svg+xml;base64,${Buffer.from(
       svgContent
     ).toString("base64")}`;
-
-    console.log(svgDataUri);
 
     const payload: ActionGetResponse = {
       title: `Sell ${sellTokenInfo?.symbol} & Buy ${buyTokenInfo?.symbol}`,
