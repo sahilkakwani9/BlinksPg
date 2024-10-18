@@ -19,6 +19,12 @@ function page() {
           posterUri="/images/covers/Tip.png"
           navigateTo="/tip"
         />
+        <TemplateCard
+          title="Create Polls"
+          desc="Build a blink that lets users interact with a poll"
+          posterUri="/images/covers/Poll.png"
+          navigateTo="/poll"
+        />
       </div>
     </BlurFade>
   );
