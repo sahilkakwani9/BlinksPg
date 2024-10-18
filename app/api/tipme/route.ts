@@ -3,6 +3,7 @@ import {
   ActionGetResponse,
   ActionPostRequest,
   ActionPostResponse,
+  MEMO_PROGRAM_ID,
   createPostResponse,
 } from "@solana/actions";
 

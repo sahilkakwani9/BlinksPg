@@ -32,28 +32,30 @@ export async function GET(request: Request) {
       {
         status: 400,
         headers: ACTIONS_CORS_HEADERS,
-      },
+      }
     );
   }
   const payload: ActionGetResponse = {
     title: poll?.title,
     icon: "http://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FTip.png&w=2048&q=75",
     description: poll.description,
-    label: "Tip me",
+    label: "Vote",
     links: {
-      actions: poll?.options.map((option) => {
-        return {
-          label: option.optionText,
-          href: `${url.href}&option={option}`,
-          type: "transaction",
-          parameters: [
-            {
-              name: "option",
-              label: option.id,
-            },
-          ],
-        };
-      }),
+      actions: poll?.options.map(
+        (option: { optionText: string; id: string }) => {
+          return {
+            label: option.optionText,
+            href: `${url.href}&option={option}`,
+            type: "transaction",
+            parameters: [
+              {
+                name: "option",
+                label: option.id,
+              },
+            ],
+          };
+        }
+      ),
     },
   };
   return Response.json(payload, {
@@ -79,7 +81,7 @@ export async function POST(request: Request) {
       {
         status: 400,
         headers: ACTIONS_CORS_HEADERS,
-      },
+      }
     );
   }
   const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
@@ -89,7 +91,7 @@ export async function POST(request: Request) {
       fromPubkey: sender,
       toPubkey: sender,
       lamports: 0,
-    }),
+    })
   );
   transaction.feePayer = sender;
   transaction.recentBlockhash = (
