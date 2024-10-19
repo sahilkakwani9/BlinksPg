@@ -82,7 +82,7 @@ function Page() {
         </Button>
       </div>
       <div className="h-46 w-96">
-        <BlinkPreview url={`http://${window.location.hostname}:3000/tipme?amount=${amount}&address=${address}`} />
+        {/* <BlinkPreview url={`http://${window.location.hostname}:3000/tipme?amount=${amount}&address=${address}`} /> */}
       </div>
     </main>
   );
