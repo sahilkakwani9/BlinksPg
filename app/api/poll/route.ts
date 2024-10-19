@@ -38,7 +38,7 @@ export async function GET(request: Request) {
   }
   const payload: ActionGetResponse = {
     title: poll?.title,
-    icon: "http://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FTip.png&w=2048&q=75",
+    icon: "https://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FPoll.png&w=2048&q=75",
     description: poll.description,
     label: "Vote",
     links: {
