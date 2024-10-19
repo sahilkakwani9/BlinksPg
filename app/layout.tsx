@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/ui/Header";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import SolanaProvider from "@/components/SolanaProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,10 +47,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased bg-gray-50 font-inter `}>
-
-        <Header />
-        {children}
-        <Toaster />
+        <SolanaProvider>
+          <Header />
+          {children}
+          <Toaster />
+        </SolanaProvider>
       </body>
     </html>
   );

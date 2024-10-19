@@ -1,7 +1,9 @@
 "use client";
+import BlinkPreview from "@/components/BlinkPreview";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/lib/hooks/use-toast";
+import { animate } from "framer-motion";
 import React, { useState } from "react";
 
 function Page() {
@@ -32,8 +34,8 @@ function Page() {
   };
 
   return (
-    <main className="min-h-screen w-full flex flex-col justify-center items-center">
-      <div className="w-[380px] p-6 bg-gray-600 border-gray-600 rounded-md">
+    <main className="min-h-screen w-full flex flex-row gap-36 justify-center items-center">
+      <div className="w-[380px] p-6 bg-gray-700 border-gray-600 rounded-md">
         <h2 className="text-2xl font-bold text-white mb-2">
           Receive Tips at your Address
         </h2>
@@ -78,6 +80,9 @@ function Page() {
         >
           Copy Link
         </Button>
+      </div>
+      <div className="h-46 w-96">
+        <BlinkPreview url={`http://${window.location.hostname}:3000/tipme?amount=${amount}&address=${address}`} />
       </div>
     </main>
   );
