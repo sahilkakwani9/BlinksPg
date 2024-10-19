@@ -1,21 +1,44 @@
-export async function castVote(voteData: CastVoteData): Promise<void> {
+import prisma from "../db/index";
+export async function castVote({
+  voterId,
+  pollId,
+  optionId,
+}: CastVoteData): Promise<void> {
   try {
-    const response = await fetch("/api/poll/vote", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(voteData),
+    const poll = await prisma.polls.findUnique({
+      where: { id: pollId },
+      include: { options: true },
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(
-        errorData.error || `HTTP error! status: ${response.status}`
-      );
+    if (!poll) {
+      throw new Error("Poll not found");
     }
 
-    const data: Poll = await response.json();
+    const option = poll.options.find((opt) => opt.id === optionId);
+    if (!option) {
+      throw new Error("Option not found");
+    }
+    const hasVoted = await prisma.vote.findMany({
+      where: {
+        pollId: pollId,
+        voterId: voterId,
+      },
+    });
+    if (hasVoted && hasVoted.length > 0) {
+      throw new Error(`Already Voted`);
+    }
+
+    await prisma.vote.create({
+      data: {
+        pollId: pollId,
+        voterId: voterId,
+      },
+    });
+
+    const data = await prisma.option.update({
+      where: { id: optionId },
+      data: { votes: option.votes + 1 },
+    });
     console.log("vote data", data);
   } catch (error) {
     if (error instanceof Error) {
