@@ -16,3 +16,9 @@ declare interface CreatePollData {
   description: string;
   options: string[];
 }
+
+declare interface CastVoteData {
+  pollId: string;
+  optionId: string;
+  voterId: string;
+}

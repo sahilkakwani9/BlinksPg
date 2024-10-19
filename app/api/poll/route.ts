@@ -17,6 +17,7 @@ import satori from "satori";
 import { renderPollImage } from "@/lib/utils/renderPollImage";
 import { readFile } from "fs/promises";
 import path from "path";
+import { castVote } from "@/lib/utils/castVote";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -54,7 +55,7 @@ export async function GET(request: Request) {
     }),
     {
       width: 600,
-      height: 400,
+      height: 700,
       fonts: [
         {
           name: "Inter",
@@ -136,6 +137,9 @@ export async function POST(request: Request) {
       message: "Vote Txn Created",
     },
   });
+
+  // castVote({optionId: })
+
   return new Response(JSON.stringify(payload), {
     headers: ACTIONS_CORS_HEADERS,
   });
