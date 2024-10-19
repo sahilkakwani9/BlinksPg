@@ -13,11 +13,21 @@ import {
   Transaction,
   clusterApiUrl,
 } from "@solana/web3.js";
+import satori from "satori";
+import { renderPollImage } from "@/lib/utils/renderPollImage";
+import { readFile } from "fs/promises";
+import path from "path";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const pollId = url.searchParams.get("pollId");
   console.log("pollId", pollId);
+
+  const interArrayBuffer = await readFile(
+    `${path.join(process.cwd(), "/public/Inter.ttf")}`
+  );
+
+  console.log("buffer", interArrayBuffer);
 
   const poll = await prisma.polls.findUnique({
     where: { id: pollId! },
@@ -36,9 +46,33 @@ export async function GET(request: Request) {
       }
     );
   }
+
+  const svg = await satori(
+    renderPollImage({
+      title: "",
+      options: ["something"],
+    }),
+    {
+      width: 600,
+      height: 400,
+      fonts: [
+        {
+          name: "Inter",
+          data: interArrayBuffer,
+          weight: 400,
+          style: "normal",
+        },
+      ],
+    }
+  );
+
+  const svgDataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString(
+    "base64"
+  )}`;
+
   const payload: ActionGetResponse = {
     title: poll?.title,
-    icon: "https://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FPoll.png&w=2048&q=75",
+    icon: svgDataUri,
     description: poll.description,
     label: "Vote",
     links: {
