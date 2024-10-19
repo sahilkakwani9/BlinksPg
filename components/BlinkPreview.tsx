@@ -18,7 +18,7 @@ const BlinkPreview = ({ url }: BlinkPreviewProps) => {
     adapter,
   });
   console.log(action)
-  return action ? <Blink action={action} websiteText={action.url} /> : null;
+  return action ? <Blink stylePreset="x-light" action={action} websiteText={action.url} /> : null;
 }
 
 export default BlinkPreview
