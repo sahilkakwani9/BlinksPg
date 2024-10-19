@@ -17,6 +17,7 @@ import {
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const pollId = url.searchParams.get("pollId");
+  console.log("pollId", pollId);
 
   const poll = await prisma.polls.findUnique({
     where: { id: pollId! },
