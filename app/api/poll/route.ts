@@ -48,12 +48,6 @@ export async function GET(request: Request) {
             label: option.optionText,
             href: `${url.href}&option={option}`,
             type: "transaction",
-            parameters: [
-              {
-                name: "option",
-                label: option.id,
-              },
-            ],
           };
         }
       ),
