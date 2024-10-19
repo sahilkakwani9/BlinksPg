@@ -22,6 +22,8 @@ export const renderPollImage = ({
         padding: "20px",
         borderRadius: "10px",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <h2
@@ -40,7 +42,14 @@ export const renderPollImage = ({
       {options.map((option, index) => {
         const percentage = calculatePercentage(option.votes);
         return (
-          <div key={index} style={{ marginBottom: "15px" }}>
+          <div
+            key={index}
+            style={{
+              marginBottom: "15px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <div
               style={{
                 display: "flex",
@@ -60,6 +69,8 @@ export const renderPollImage = ({
                 borderRadius: "15px",
                 overflow: "hidden",
                 position: "relative",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <div
@@ -69,6 +80,8 @@ export const renderPollImage = ({
                   backgroundColor: "#6366F1",
                   borderRadius: "15px",
                   transition: "width 0.5s ease-out",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               />
               <div
@@ -101,6 +114,8 @@ export const renderPollImage = ({
           textAlign: "center",
           fontSize: "14px",
           color: "#888888",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         Total votes: {totalVotes}
