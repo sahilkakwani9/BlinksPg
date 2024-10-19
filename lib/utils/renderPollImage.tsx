@@ -3,13 +3,19 @@ export const renderPollImage = ({
   options,
 }: {
   title: string;
-  options: any[];
+  options: PollOption[];
 }) => {
+  const totalVotes = options.reduce((sum, option) => sum + option.votes, 0);
+
+  const calculatePercentage = (votes: number) => {
+    if (totalVotes === 0) return 0;
+    return Math.round((votes / totalVotes) * 100);
+  };
   return (
     <div
       style={{
         width: "600px",
-        height: "200px",
+        height: "500px",
         backgroundColor: "#21252B",
         fontFamily: "Inter, sans-serif",
         color: "#F8F8F8",
@@ -26,51 +32,69 @@ export const renderPollImage = ({
           marginBottom: "20px",
         }}
       >
-        {"Who's Faster"}
+        {title}
       </h2>
-      {options.map((option, index) => (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "10px",
-          }}
-        >
+      {options.map((option, index) => {
+        const percentage = calculatePercentage(option.votes);
+        return (
           <div
+            key={index}
             style={{
-              width: "20px",
-              marginRight: "10px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {1}.
-          </div>
-          <div
-            style={{
-              flex: 1,
-              height: "40px",
-              backgroundColor: index === 0 ? "#2C4A3E" : "#333333",
-              borderRadius: "20px",
               display: "flex",
               alignItems: "center",
-              paddingLeft: "20px",
-              position: "relative",
+              marginBottom: "10px",
             }}
           >
-            {"This are options"}
-            <span
+            <div
               style={{
-                position: "absolute",
-                right: "20px",
+                width: "20px",
+                marginRight: "10px",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              {0 === 0 ? "96%" : "4%"}
-            </span>
+              {index + 1}.
+            </div>
+            <div
+              style={{
+                flex: 1,
+                height: "40px",
+                backgroundColor: "#333333",
+                borderRadius: "20px",
+                display: "flex",
+                alignItems: "center",
+                paddingLeft: "20px",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: `${percentage}%`,
+                  backgroundColor: "#2C4A3E",
+                  zIndex: 1,
+                }}
+              />
+              <span style={{ position: "relative", zIndex: 2 }}>
+                {option.optionText}
+              </span>
+              <span
+                style={{
+                  position: "absolute",
+                  right: "20px",
+                  zIndex: 2,
+                }}
+              >
+                {`${percentage}%`}
+              </span>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

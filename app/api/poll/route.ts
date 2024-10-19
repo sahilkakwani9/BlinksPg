@@ -49,8 +49,8 @@ export async function GET(request: Request) {
 
   const svg = await satori(
     renderPollImage({
-      title: "",
-      options: ["something"],
+      title: poll.title,
+      options: poll.options,
     }),
     {
       width: 600,
