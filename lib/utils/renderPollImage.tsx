@@ -29,7 +29,7 @@ export const renderPollImage = ({
     >
       <h2
         style={{
-          fontSize: "24px",
+          fontSize: "30px",
           fontWeight: "bold",
           marginBottom: "20px",
           textAlign: "left",
@@ -57,13 +57,13 @@ export const renderPollImage = ({
               }}
             >
               <span style={{ marginRight: "10px", color: "#6366F1" }}>▶</span>
-              <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+              <span style={{ fontSize: "20px", fontWeight: "bold" }}>
                 {option.optionText}
               </span>
             </div>
             <div
               style={{
-                height: "30px",
+                height: "80px",
                 backgroundColor: "#333333",
                 borderRadius: "15px",
                 overflow: "hidden",
@@ -96,10 +96,10 @@ export const renderPollImage = ({
                   padding: "0 10px",
                 }}
               >
-                <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+                <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                   {Math.round(option.votes)} votes
                 </span>
-                <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+                <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                   {percentage}%
                 </span>
               </div>
@@ -111,7 +111,7 @@ export const renderPollImage = ({
         style={{
           marginTop: "20px",
           textAlign: "center",
-          fontSize: "14px",
+          fontSize: "16px",
           color: "#888888",
           display: "flex",
           flexDirection: "column",

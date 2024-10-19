@@ -96,51 +96,84 @@ export async function GET(request: Request) {
 export const OPTIONS = GET;
 
 export async function POST(request: Request) {
-  const body: ActionPostRequest = await request.json();
-
-  let sender;
   try {
-    sender = new PublicKey(body.account);
-  } catch (error) {
-    return Response.json(
-      {
-        error: {
-          message: "Invalid account",
+    const body: ActionPostRequest = await request.json();
+    const url = new URL(request.url);
+
+    const optionId = url.searchParams.get("option");
+    const pollId = url.searchParams.get("pollId");
+    if (!optionId || !pollId) {
+      return Response.json(
+        {
+          error: {
+            message: "Invalid account",
+          },
         },
-      },
-      {
-        status: 400,
-        headers: ACTIONS_CORS_HEADERS,
-      }
+        {
+          status: 400,
+          headers: ACTIONS_CORS_HEADERS,
+        }
+      );
+    }
+
+    let sender;
+    try {
+      sender = new PublicKey(body.account);
+    } catch (error) {
+      return Response.json(
+        {
+          error: {
+            message: "Invalid account",
+          },
+        },
+        {
+          status: 400,
+          headers: ACTIONS_CORS_HEADERS,
+        }
+      );
+    }
+    const connection = new Connection(
+      clusterApiUrl("mainnet-beta"),
+      "confirmed"
     );
+
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: sender,
+        toPubkey: sender,
+        lamports: 0,
+      })
+    );
+    transaction.feePayer = sender;
+    transaction.recentBlockhash = (
+      await connection.getLatestBlockhash()
+    ).blockhash;
+    transaction.lastValidBlockHeight = (
+      await connection.getLatestBlockhash()
+    ).lastValidBlockHeight;
+    const payload: ActionPostResponse = await createPostResponse({
+      fields: {
+        type: "transaction",
+        transaction,
+        message: "Vote Txn Created",
+      },
+    });
+
+    await castVote({
+      optionId: optionId,
+      pollId: pollId,
+      voterId: sender.toString(),
+    });
+
+    return new Response(JSON.stringify(payload), {
+      headers: ACTIONS_CORS_HEADERS,
+    });
+  } catch (error) {
+    console.log(typeof error);
+
+    return new Response("Already Voted", {
+      status: 400,
+      headers: ACTIONS_CORS_HEADERS,
+    });
   }
-  const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
-
-  const transaction = new Transaction().add(
-    SystemProgram.transfer({
-      fromPubkey: sender,
-      toPubkey: sender,
-      lamports: 0,
-    })
-  );
-  transaction.feePayer = sender;
-  transaction.recentBlockhash = (
-    await connection.getLatestBlockhash()
-  ).blockhash;
-  transaction.lastValidBlockHeight = (
-    await connection.getLatestBlockhash()
-  ).lastValidBlockHeight;
-  const payload: ActionPostResponse = await createPostResponse({
-    fields: {
-      type: "transaction",
-      transaction,
-      message: "Vote Txn Created",
-    },
-  });
-
-  // castVote({optionId: })
-
-  return new Response(JSON.stringify(payload), {
-    headers: ACTIONS_CORS_HEADERS,
-  });
 }
