@@ -14,15 +14,14 @@ export const renderPollImage = ({
   return (
     <div
       style={{
-        width: "600px",
-        height: "500px",
-        backgroundColor: "#21252B",
-        fontFamily: "Inter, sans-serif",
-        color: "#F8F8F8",
+        width: "100%",
+        maxWidth: "600px",
+        backgroundColor: "#1E1E1E",
+        color: "#FFFFFF",
+        fontFamily: "Arial, sans-serif",
         padding: "20px",
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
+        borderRadius: "10px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       }}
     >
       <h2
@@ -30,6 +29,10 @@ export const renderPollImage = ({
           fontSize: "24px",
           fontWeight: "bold",
           marginBottom: "20px",
+          textAlign: "left",
+          background: "linear-gradient(45deg, #6366F1, #8B5CF6)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
         }}
       >
         {title}
@@ -37,64 +40,71 @@ export const renderPollImage = ({
       {options.map((option, index) => {
         const percentage = calculatePercentage(option.votes);
         return (
-          <div
-            key={index}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
+          <div key={index} style={{ marginBottom: "15px" }}>
             <div
               style={{
-                width: "20px",
-                marginRight: "10px",
                 display: "flex",
-                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: "5px",
               }}
             >
-              {index + 1}.
+              <span style={{ marginRight: "10px", color: "#6366F1" }}>▶</span>
+              <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                {option.optionText}
+              </span>
             </div>
             <div
               style={{
-                flex: 1,
-                height: "40px",
+                height: "30px",
                 backgroundColor: "#333333",
-                borderRadius: "20px",
-                display: "flex",
-                alignItems: "center",
-                paddingLeft: "20px",
-                position: "relative",
+                borderRadius: "15px",
                 overflow: "hidden",
+                position: "relative",
               }}
             >
               <div
                 style={{
-                  position: "absolute",
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
+                  height: "100%",
                   width: `${percentage}%`,
-                  backgroundColor: "#2C4A3E",
-                  zIndex: 1,
+                  backgroundColor: "#6366F1",
+                  borderRadius: "15px",
+                  transition: "width 0.5s ease-out",
                 }}
               />
-              <span style={{ position: "relative", zIndex: 2 }}>
-                {option.optionText}
-              </span>
-              <span
+              <div
                 style={{
                   position: "absolute",
-                  right: "20px",
-                  zIndex: 2,
+                  top: "0",
+                  left: "0",
+                  right: "0",
+                  bottom: "0",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0 10px",
                 }}
               >
-                {`${percentage}%`}
-              </span>
+                <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  {Math.round(option.votes)} votes
+                </span>
+                <span style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  {percentage}%
+                </span>
+              </div>
             </div>
           </div>
         );
       })}
+      <div
+        style={{
+          marginTop: "20px",
+          textAlign: "center",
+          fontSize: "14px",
+          color: "#888888",
+        }}
+      >
+        Total votes: {totalVotes}
+      </div>
     </div>
   );
 };
