@@ -24,6 +24,7 @@ export const renderPollImage = ({
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         display: "flex",
         flexDirection: "column",
+        height: "100%",
       }}
     >
       <h2
@@ -32,9 +33,7 @@ export const renderPollImage = ({
           fontWeight: "bold",
           marginBottom: "20px",
           textAlign: "left",
-          background: "linear-gradient(45deg, #6366F1, #8B5CF6)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
+          color: "white",
         }}
       >
         {title}
