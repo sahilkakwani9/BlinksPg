@@ -17,7 +17,7 @@ export const CardContainer = ({
   return (
     <div
       className={cn(
-        "py-16 flex items-center justify-center",
+        "flex items-center justify-center",
         containerClassName
       )}
       style={{
