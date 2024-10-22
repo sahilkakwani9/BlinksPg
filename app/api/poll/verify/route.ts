@@ -8,7 +8,12 @@ import {
 import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
+import prisma from "../../../../lib/db/index";
 import { castVote } from "@/lib/utils/castVote";
+import { readFile } from "fs/promises";
+import path from "path";
+import { renderPollImage } from "@/lib/utils/renderPollImage";
+import satori from "satori";
 
 function verifySignature(message: string, signature: string, account: string) {
   const messageBytes = new TextEncoder().encode(message);
@@ -16,7 +21,7 @@ function verifySignature(message: string, signature: string, account: string) {
   return nacl.sign.detached.verify(
     messageBytes,
     signatureBytes,
-    Uint8Array.from(new PublicKey(account).toBuffer()),
+    Uint8Array.from(new PublicKey(account).toBuffer())
   );
 }
 const message = "You are voting for ";
@@ -38,6 +43,9 @@ export const OPTIONS = async () => {
 export async function POST(request: Request) {
   try {
     const { account, signature }: NextActionPostRequest = await request.json();
+    const interArrayBuffer = await readFile(
+      `${path.join(process.cwd(), "/public/Inter.ttf")}`
+    );
     const url = new URL(request.url);
     const pollId = url.searchParams.get("pollId");
     const voterId = url.searchParams.get("voterId");
@@ -53,7 +61,7 @@ export async function POST(request: Request) {
     const isSignatureValid = verifySignature(
       message + optionText,
       signature,
-      account,
+      account
     );
     if (!isSignatureValid) {
       return Response.json({
@@ -70,17 +78,47 @@ export async function POST(request: Request) {
       pollId: pollId!,
       voterId: voterId!,
     });
+
+    const poll = await prisma.polls.findUnique({
+      where: { id: pollId! },
+      include: { options: true },
+    });
+
+    const svg = await satori(
+      renderPollImage({
+        title: poll!.title,
+        options: poll!.options,
+      }),
+      {
+        width: 600,
+        height: 500,
+        fonts: [
+          {
+            name: "Inter",
+            data: interArrayBuffer,
+            weight: 400,
+            style: "normal",
+          },
+        ],
+      }
+    );
+
+    const svgDataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString(
+      "base64"
+    )}`;
+
     return Response.json(
       {
         ...signMessageAction,
         type: "action",
         title: "Your vote has been registered",
         description: "Thanks for Voting",
+        icon: svgDataUri,
       },
       {
         headers: ACTIONS_CORS_HEADERS,
         status: 200,
-      },
+      }
     );
   } catch (error) {
     console.log(error);
@@ -96,7 +134,7 @@ export async function POST(request: Request) {
           {
             headers: ACTIONS_CORS_HEADERS,
             status: 200,
-          },
+          }
         );
       }
     }
