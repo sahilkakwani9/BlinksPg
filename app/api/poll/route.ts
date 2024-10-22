@@ -2,34 +2,21 @@ import {
   ACTIONS_CORS_HEADERS,
   ActionGetResponse,
   ActionPostRequest,
-  ActionPostResponse,
-  createPostResponse,
 } from "@solana/actions";
 import prisma from "../../../lib/db/index";
-import {
-  Connection,
-  PublicKey,
-  SystemProgram,
-  Transaction,
-  clusterApiUrl,
-} from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import satori from "satori";
 import { renderPollImage } from "@/lib/utils/renderPollImage";
 import { readFile } from "fs/promises";
 import path from "path";
-import { castVote } from "@/lib/utils/castVote";
+import { SignMessageResponse } from "@dialectlabs/blinks";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const pollId = url.searchParams.get("pollId");
-  console.log("pollId", pollId);
-
   const interArrayBuffer = await readFile(
-    `${path.join(process.cwd(), "/public/Inter.ttf")}`
+    `${path.join(process.cwd(), "/public/Inter.ttf")}`,
   );
-
-  console.log("buffer", interArrayBuffer);
-
   const poll = await prisma.polls.findUnique({
     where: { id: pollId! },
     include: { options: true },
@@ -44,7 +31,7 @@ export async function GET(request: Request) {
       {
         status: 400,
         headers: ACTIONS_CORS_HEADERS,
-      }
+      },
     );
   }
 
@@ -64,11 +51,11 @@ export async function GET(request: Request) {
           style: "normal",
         },
       ],
-    }
+    },
   );
 
   const svgDataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString(
-    "base64"
+    "base64",
   )}`;
 
   const payload: ActionGetResponse = {
@@ -81,10 +68,10 @@ export async function GET(request: Request) {
         (option: { optionText: string; id: string }) => {
           return {
             label: option.optionText,
-            href: `${url.href}&option={option}`,
-            type: "transaction",
+            href: `${url.href}&option=${option.id}&optionText=${option.optionText}`,
+            type: "message",
           };
-        }
+        },
       ),
     },
   };
@@ -99,8 +86,9 @@ export async function POST(request: Request) {
   try {
     const body: ActionPostRequest = await request.json();
     const url = new URL(request.url);
-
+    console.log(url);
     const optionId = url.searchParams.get("option");
+    const optionText = url.searchParams.get("optionText");
     const pollId = url.searchParams.get("pollId");
     if (!optionId || !pollId) {
       return Response.json(
@@ -112,7 +100,7 @@ export async function POST(request: Request) {
         {
           status: 400,
           headers: ACTIONS_CORS_HEADERS,
-        }
+        },
       );
     }
 
@@ -129,47 +117,24 @@ export async function POST(request: Request) {
         {
           status: 400,
           headers: ACTIONS_CORS_HEADERS,
-        }
+        },
       );
     }
-    const connection = new Connection(
-      clusterApiUrl("mainnet-beta"),
-      "confirmed"
-    );
-
-    const transaction = new Transaction().add(
-      SystemProgram.transfer({
-        fromPubkey: sender,
-        toPubkey: sender,
-        lamports: 0,
-      })
-    );
-    transaction.feePayer = sender;
-    transaction.recentBlockhash = (
-      await connection.getLatestBlockhash()
-    ).blockhash;
-    transaction.lastValidBlockHeight = (
-      await connection.getLatestBlockhash()
-    ).lastValidBlockHeight;
-    const payload: ActionPostResponse = await createPostResponse({
-      fields: {
-        type: "transaction",
-        transaction,
-        message: "Vote Txn Created",
+    const payload: SignMessageResponse = {
+      data: `You are voting for ${optionText}`,
+      type: "message",
+      links: {
+        next: {
+          type: "post",
+          href: `/api/poll/verify?pollId=${pollId}&voterId=${sender}&optionId=${optionId}&optionText=${optionText}`,
+        },
       },
-    });
-
-    await castVote({
-      optionId: optionId,
-      pollId: pollId,
-      voterId: sender.toString(),
-    });
-
+    };
     return new Response(JSON.stringify(payload), {
       headers: ACTIONS_CORS_HEADERS,
     });
   } catch (error) {
-    console.log(typeof error);
+    console.log(error);
 
     return new Response("Already Voted", {
       status: 400,

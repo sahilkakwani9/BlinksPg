@@ -25,6 +25,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solflare-wallet/utl-sdk": "^1.4.0",
+    "bs58": "^6.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.8",
@@ -38,6 +39,7 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.169.0",
+    "tweetnacl": "^1.0.3",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {

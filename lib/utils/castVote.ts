@@ -25,7 +25,7 @@ export async function castVote({
       },
     });
     if (hasVoted && hasVoted.length > 0) {
-      throw new Error(`Already Voted`);
+      throw new Error("Already Voted");
     }
 
     await prisma.vote.create({
