@@ -8,21 +8,43 @@ import SolanaProvider from "@/components/SolanaProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ClaimSol - Reclaim Your SOL Rent",
-  description: "Seamlessly close unused token accounts and reclaim the SOL rent you're owed. Recover your assets with just a few clicks.",
-  authors: [{
-    url: "https://devvivek.tech",
-    name: "VS",
-  }],
+  title: "Blink Studio - No-Code Solana Actions Builder",
+  description:
+    "Create and deploy Solana Actions (blinks) with our intuitive drag-and-drop interface. Build DeFi integrations, token swaps, and more without coding knowledge.",
+  authors: [
+    {
+      url: "https://github.com/sahilkakwani9",
+      name: "Sahil Kakwani",
+    },
+    {
+      url: "https://devvivek.tech",
+      name: "Vivek Suthar",
+    },
+  ],
   openGraph: {
-    images: "https://res.cloudinary.com/dazemzk7u/image/upload/v1723235594/zgsmeu9qj3s60o6u6bbn.png",
-    description: "Seamlessly close unused token accounts and reclaim the SOL rent you're owed. Recover your assets with just a few clicks.",
-    title: "ClaimSol - Reclaim Your SOL Rent",
+    images: process.env.NEXT_PUBLIC_APP_URL + "/og.png",
+    description:
+      "Build and deploy Solana Actions without code. Create token swaps, tips, fundraising, and more using our drag-and-drop interface.",
+    title: "Blink Studio - Visual Solana Actions Builder",
     type: "website",
-    siteName: "ClaimSol",
+    siteName: "Blink Studio",
   },
-  keywords: ["solana", "close account", "claim rent", "close token accounts", "recover SOL rent", "SOL rent recovery",
-    "SOL account closure", "ClaimSol", "reclaim SOL"],
+  keywords: [
+    "solana",
+    "no-code platform",
+    "blinks",
+    "solana actions",
+    "drag and drop",
+    "defi integration",
+    "jupiter swap",
+    "token creation",
+    "blockchain development",
+    "visual editor",
+    "web3 tools",
+    "solana development",
+    "dapp builder",
+    "blockchain automation",
+  ],
   robots: {
     index: true,
     follow: true,
@@ -32,12 +54,12 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "ClaimSol - Reclaim Your SOL Rent",
-    description: "Seamlessly close unused token accounts and reclaim the SOL rent you're owed. Recover your assets with just a few clicks.",
-    images: ["https://res.cloudinary.com/dazemzk7u/image/upload/v1723235594/zgsmeu9qj3s60o6u6bbn.png"],
+    title: "Blink Studio - Build Solana Actions Visually",
+    description:
+      "Create powerful Solana Actions without code. Drag-and-drop interface for building token swaps, tips, fundraising features, and more.",
+    images: [process.env.NEXT_PUBLIC_APP_URL + "/og.png"],
     card: "summary_large_image",
-    creator: "@theviveksuthar",
-  }
+  },
 };
 export default function RootLayout({
   children,
