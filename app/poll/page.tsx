@@ -149,7 +149,7 @@ export default function PollCreator() {
                 />
               </div>
             </div>
-            <div>
+            {/* <div>
               <Label
                 htmlFor="image"
                 className="text-lg font-medium text-gray-700"
@@ -189,7 +189,7 @@ export default function PollCreator() {
                   </Button>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <div>
             <Label className="text-lg font-medium text-gray-700">
