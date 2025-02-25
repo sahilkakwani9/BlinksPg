@@ -49,6 +49,12 @@ function page() {
           posterUri="/images/covers/Meteora.png"
           navigateTo="/stake"
         />
+          <TemplateCard
+          title="Stake your Sol"
+          desc="Stake your Sol through Native Staking"
+          posterUri="/images/covers/Stake.png"
+          navigateTo="/validator"
+        />
       </div>
     </BlurFade>
   );
