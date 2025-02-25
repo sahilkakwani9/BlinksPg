@@ -28,27 +28,24 @@ function Page() {
 
   return (
     <main className="min-h-screen w-full flex flex-col justify-center items-center">
-      <div className="w-[380px] p-6 bg-gray-600 border-gray-600 rounded-lg">
+      <div className="w-[380px] p-6 bg-gray-200 border-gray-300 rounded-lg">
         <div className="relative z-20">
-          <h2 className="text-2xl font-bold text-white mb-2">
+          <h2 className="text-2xl font-bold text-black mb-2">
             Create your blink
           </h2>
-          <p className="text-neutral-200 mb-6">
+          <p className="text-black mb-6">
             Create your limit order blink with single click
           </p>
           <form>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name" className="mb-1 text-sm text-neutral-200">
+                <Label htmlFor="name" className="mb-1 text-sm text-black">
                   You&apos;re Selling
                 </Label>
                 <SellTokenModal />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label
-                  htmlFor="framework"
-                  className="mb-1 text-sm text-neutral-200"
-                >
+                <Label htmlFor="framework" className="mb-1 text-sm text-black">
                   You&apos;re Buying
                 </Label>
                 <BuyTokenModal />

@@ -12,7 +12,6 @@ function Page() {
   const [address, setAddress] = useState("");
 
   const handleCopyLink = () => {
-
     if (!address) {
       toast({
         title: "Error",
@@ -34,18 +33,18 @@ function Page() {
   };
 
   return (
-    <main className="min-h-screen w-full flex flex-row gap-36 justify-center items-center">
-      <div className="w-[380px] p-6 bg-gray-700 border-gray-600 rounded-md">
-        <h2 className="text-2xl font-bold text-white mb-2">
+    <main className="min-h-screen w-full flex flex-col justify-center items-center">
+      <div className="w-[380px] p-6 bg-gray-200 border-gray-300 rounded-md">
+        <h2 className="text-2xl font-bold text-black mb-2">
           Receive Tips at your Address
         </h2>
-        <p className="text-neutral-200 mb-6">
+        <p className="text-black mb-6">
           Generate your unique tip Blink with a custom amount and your address
         </p>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="amount" className="mb-1 text-sm text-neutral-200">
+              <Label htmlFor="amount" className="mb-1 text-sm text-black">
                 Amount (SOL)
               </Label>
               <input
@@ -60,7 +59,7 @@ function Page() {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="address" className="mb-1 text-sm text-neutral-200">
+              <Label htmlFor="address" className="mb-1 text-sm text-black">
                 Solana Address
               </Label>
               <input
