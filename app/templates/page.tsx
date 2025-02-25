@@ -43,6 +43,12 @@ function page() {
           posterUri="/images/covers/Sell.png"
           navigateTo="/sell"
         />
+        <TemplateCard
+          title="Stake in Meteora Pools"
+          desc="Stake your Money in Meteora Liquidity Pools"
+          posterUri="/images/covers/Meteora.png"
+          navigateTo="/stake"
+        />
       </div>
     </BlurFade>
   );
