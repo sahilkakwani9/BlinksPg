@@ -110,11 +110,9 @@ export const POST = async (req: Request) => {
     const poolAddress = requestUrl.searchParams.get("poolAddress");
     const amount1 = requestUrl.searchParams.get("amount1");
     const amount2 = requestUrl.searchParams.get("amount2");
-    const token1Dec = requestUrl.searchParams.get("token1Dec");
-    const token2Dec = requestUrl.searchParams.get("token2Dec");
 
     // Validate required parameters
-    if (!poolAddress || !amount1 || !amount2 || !token1Dec || !token2Dec) {
+    if (!poolAddress || !amount1 || !amount2) {
       return Response.json(
         {
           error:
