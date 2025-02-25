@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   const tipAmount = url.searchParams.get("amount") || "0.1";
   const payload: ActionGetResponse = {
     title: `Tip Me ${tipAmount} SOl`,
-    icon: "http://blinks-pg-five.vercel.app/_next/image?url=%2Fimages%2Fcovers%2FTip.png&w=2048&q=75",
+    icon: "https://blinks-pg-five.vercel.app/images/covers/Tip.png",
     description: "Support me by sending SOL",
     label: "Tip me",
     links: {

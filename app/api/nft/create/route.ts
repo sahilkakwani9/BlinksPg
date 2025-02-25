@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   const payload: ActionGetResponse = {
     title: "Create NFT",
     description: "Create a new NFT using Metaplex",
-    icon: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIgZmlsbD0iY3VycmVudENvbG9yIi8+PC9zdmc+",
+    icon: "https://blinks-pg-five.vercel.app/images/covers/NFT-Bid.png",
     label: "Create NFT",
     links: {
       actions: [

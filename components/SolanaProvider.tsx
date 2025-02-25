@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
   ConnectionProvider,
@@ -16,7 +16,11 @@ export default function SolanaProvider({
 }) {
   const network = WalletAdapterNetwork.Devnet;
 
-  const endpoint = useMemo(() => clusterApiUrl("mainnet-beta"), []);
+  const endpoint = useMemo(
+    () =>
+      "https://magical-cosmopolitan-friday.solana-mainnet.quiknode.pro/135304bfffee799379639f69c59f75cd4b095a1a",
+    []
+  );
 
   const wallets = useMemo(
     () => [new PhantomWalletAdapter()],
