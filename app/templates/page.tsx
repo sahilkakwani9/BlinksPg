@@ -32,11 +32,17 @@ function page() {
           navigateTo="/nft"
         />
         <TemplateCard
-        title="List NFT's through Tensor"
-        desc="Build a blink that lets users list their NFT on Tensor"
-        posterUri="/images/covers/List.png"
-        navigateTo="/list"
-      />
+          title="List NFT's through Tensor"
+          desc="Build a blink that lets users list their NFT on Tensor"
+          posterUri="/images/covers/List.png"
+          navigateTo="/list"
+        />
+        <TemplateCard
+          title="Sell NFT's on Tensor"
+          desc="Build a blink that lets users sell their NFT's on Tensor"
+          posterUri="/images/covers/Sell.png"
+          navigateTo="/sell"
+        />
       </div>
     </BlurFade>
   );
