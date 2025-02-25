@@ -31,8 +31,8 @@ export const GET = async (req: Request) => {
       !token1Address ||
       !token2Address ||
       !poolAddress ||
-      token1Amount ||
-      token2Amount
+      !token1Amount ||
+      !token2Amount
     ) {
       return Response.json("Data not provided", {
         headers: ACTIONS_CORS_HEADERS,
