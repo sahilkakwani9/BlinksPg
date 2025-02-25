@@ -155,7 +155,7 @@ export const POST = async (req: Request) => {
     // Validate connection
     let connection: PublicKey;
     try {
-      connection = new PublicKey(body.connection);
+      connection = body.connection;
     } catch (err) {
       return Response.json(
         { error: "Invalid 'connection' provided" },
