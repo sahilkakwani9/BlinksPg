@@ -31,6 +31,12 @@ function page() {
           posterUri="/images/covers/NFT-Bid.png"
           navigateTo="/nft"
         />
+        <TemplateCard
+        title="List NFT's through Tensor"
+        desc="Build a blink that lets users list their NFT on Tensor"
+        posterUri="/images/covers/List.png"
+        navigateTo="/list"
+      />
       </div>
     </BlurFade>
   );
