@@ -26,10 +26,10 @@ function page() {
           navigateTo="/poll"
         />
         <TemplateCard
-          title="Create NFT Bids"
-          desc="Build a blink that lets users bid your NFT"
+          title="Create NFT through Metaplex"
+          desc="Build a blink that lets users create NFTs through Metaplex"
           posterUri="/images/covers/NFT-Bid.png"
-          navigateTo="/poll"
+          navigateTo="/nft"
         />
       </div>
     </BlurFade>
