@@ -18,9 +18,7 @@ export default function SolanaProvider({
 
   const endpoint = useMemo(
     () =>
-      clusterApiUrl(
-        "https://magical-cosmopolitan-friday.solana-mainnet.quiknode.pro/135304bfffee799379639f69c59f75cd4b095a1a"
-      ),
+      "https://magical-cosmopolitan-friday.solana-mainnet.quiknode.pro/135304bfffee799379639f69c59f75cd4b095a1a",
     []
   );
 
